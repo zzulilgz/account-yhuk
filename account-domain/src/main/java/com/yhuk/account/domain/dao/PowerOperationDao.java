@@ -1,0 +1,18 @@
+package com.yhuk.account.domain.dao;
+
+import com.yhuk.account.domain.entity.PowerOperation;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * <p>
+  * 操作表，button,href等 Mapper 接口
+ * </p>
+ *
+ * @author zzulilgz
+ * @since 2019-04-11
+ */
+@Mapper
+public interface PowerOperationDao extends BaseMapper<PowerOperation> {
+
+}
