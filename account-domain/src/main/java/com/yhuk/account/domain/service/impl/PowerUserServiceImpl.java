@@ -4,7 +4,10 @@ import com.yhuk.account.domain.entity.PowerUser;
 import com.yhuk.account.domain.dao.PowerUserDao;
 import com.yhuk.account.domain.service.PowerUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +19,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PowerUserServiceImpl extends ServiceImpl<PowerUserDao, PowerUser> implements PowerUserService {
-	
+
+    @Autowired
+    PowerUserDao powerUserDao;
+    @Override
+    public List<PowerUser> find() {
+
+        return powerUserDao.find();
+    }
 }

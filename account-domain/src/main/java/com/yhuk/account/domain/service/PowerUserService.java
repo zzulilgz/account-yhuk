@@ -3,6 +3,8 @@ package com.yhuk.account.domain.service;
 import com.yhuk.account.domain.entity.PowerUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -12,5 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-04-11
  */
 public interface PowerUserService extends IService<PowerUser> {
-	
+
+    List<PowerUser> find();
 }

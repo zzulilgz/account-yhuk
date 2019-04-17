@@ -4,6 +4,8 @@ import com.yhuk.account.domain.entity.PowerUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
   *  Mapper 接口
@@ -12,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author zzulilgz
  * @since 2019-04-11
  */
-@Mapper
 public interface PowerUserDao extends BaseMapper<PowerUser> {
 
+    List<PowerUser> find();
 }
