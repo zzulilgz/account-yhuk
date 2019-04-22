@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 //默认只扫描启动类同级的包
 @ComponentScan(basePackages ={"com.yhuk.account"})
-@MapperScan(basePackages = {"com.yhuk.account.domain.dao"})
+@MapperScan("com.yhuk.account.*.dao")
 @RestController
 public class AccountRestapiApplication {
 
@@ -27,7 +27,7 @@ public class AccountRestapiApplication {
 
     @GetMapping
     public String test(){
-        System.out.println(userService.list().toString());
+        System.out.println(userService.find().toString());
         return userService.list().toString();
     }
 

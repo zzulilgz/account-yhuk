@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author zzulilgz
  * @since 2019-04-11
  */
-@Mapper
+
 public interface PowerOperationDao extends BaseMapper<PowerOperation> {
 
 }
