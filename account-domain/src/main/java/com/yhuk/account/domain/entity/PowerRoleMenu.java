@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author zzulilgz
- * @since 2019-04-11
+ * @since 2019-04-23
  */
 public class PowerRoleMenu extends Model<PowerRoleMenu> {
 

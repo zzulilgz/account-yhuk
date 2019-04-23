@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author zzulilgz
- * @since 2019-04-11
+ * @since 2019-04-23
  */
-
+@Mapper
 public interface PowerMenuDao extends BaseMapper<PowerMenu> {
 
 }

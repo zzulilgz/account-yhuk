@@ -19,7 +19,5 @@
     <sql id="Base_Column_List">
         id, login_name, password, last_login_time, create_time, photo_url, user_name, remark, update_time
     </sql>
-	<select id="find" resultMap="BaseResultMap">
-		SELECT * FROM power_user
-	</select>
+
 </mapper>

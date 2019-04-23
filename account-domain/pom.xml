@@ -12,7 +12,11 @@
     <artifactId>account-domain</artifactId>
     <packaging>jar</packaging>
     <dependencies>
-
+        <dependency>
+            <groupId>com.yhuk</groupId>
+            <artifactId>account-object</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

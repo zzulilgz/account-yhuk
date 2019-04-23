@@ -1,4 +1,4 @@
-package com.yhuk.account.domain;
+package com.yhuk.account.restapi;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -17,19 +17,17 @@ import java.util.Map;
  * @Date 2019/4/11 10:16
  * @Version 1.0
  **/
-public class MySqlGenerator {
+public class CodeGenerator {
 
-    public static final String OUTPUT_DIR = "\\account-domain\\src\\main\\java";
+    public static final String OUTPUT_DIR = "\\account-restapi\\src\\main\\java";
     public static final String MYSQL_USER_NAME = "root";
     public static final String MYSQL_PASSWORD = "aca1b7dd6d4ed58e320288fbb343240b";
     public static final String MYSQL_LINK_URL = "jdbc:mysql://123.207.255.184:3306/yhuk_power?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8";
-    public static final String BASIC_PACKAGE = "com.yhuk.account.domain";
+    public static final String BASIC_DOMAIN_PACKAGE = "com.yhuk.account.domain";
+    public static final String BASIC_RESTAPI_PACKAGE = "com.yhuk.account.restapi";
     public static final String[] INCLUDE_TABLES = {"power_user","power_menu",
-            "power_role","power_operation","power_menu_operation",
-            "power_role_menu","power_role_operation","power_role_user"};  //需要生成的表
+            "power_role","power_operation"};  //需要生成的表
 
-    //自定义父类
-    public static final String Super_ServiceImpl_Class = "com.yhuk.account.domain.service.impl.BaseServiceImpl";
 
     public static void main(String[] args) {
         AutoGenerator mpg = new AutoGenerator();
@@ -49,7 +47,7 @@ public class MySqlGenerator {
         gc.setXmlName("%sDao");
         gc.setServiceName("%sService");
         gc.setServiceImplName("%sServiceImpl");
-        gc.setControllerName("%sController");
+        //gc.setControllerName("%sController");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -87,7 +85,7 @@ public class MySqlGenerator {
         // 自定义 service 父类
         // strategy.setSuperServiceClass("com.baomidou.demo.TestService");
         // 自定义 service 实现类父类
-        strategy.setSuperServiceImplClass(Super_ServiceImpl_Class);
+        // strategy.setSuperServiceImplClass("com.baomidou.demo.TestServiceImpl");
         // 自定义 controller 父类
         //strategy.setSuperControllerClass("cn.jeefast.common.base.BaseController");
         // 生成 RestController 风格
@@ -99,12 +97,12 @@ public class MySqlGenerator {
         // 注意不同的模块生成时要修改对应模块包名
         PackageConfig pc = new PackageConfig();
         pc.setParent(null);
-        pc.setEntity(BASIC_PACKAGE+".entity");
-        pc.setMapper(BASIC_PACKAGE+".dao");
-        pc.setXml(BASIC_PACKAGE+".mapping");
-        pc.setService(BASIC_PACKAGE+".service");
-        pc.setServiceImpl(BASIC_PACKAGE+".service.impl");
-        //pc.setController(BASIC_PACKAGE+".controller");
+        pc.setEntity(BASIC_DOMAIN_PACKAGE+".entity");
+        pc.setMapper(BASIC_DOMAIN_PACKAGE+".dao");
+        pc.setXml(BASIC_DOMAIN_PACKAGE+".mapping");
+        pc.setService(BASIC_DOMAIN_PACKAGE+".service");
+        pc.setServiceImpl(BASIC_DOMAIN_PACKAGE+".service.impl");
+        pc.setController(BASIC_RESTAPI_PACKAGE+".controller");
         mpg.setPackageInfo(pc);
 
         // 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
@@ -121,13 +119,20 @@ public class MySqlGenerator {
         // 自定义模板配置，可以 copy 源码 mybatis-plus/src/main/resources/templates 下面内容修改，
         // 放置自己项目的 src/main/resources/templates 目录下, 默认名称一下可以不配置，也可以自定义模板名称
         TemplateConfig tc = new TemplateConfig();
-       // tc.setController("/templates/controller.java.vm");
-        tc.setController(null);
-        tc.setEntity("/templates/entity.java.vm");
-        tc.setMapper("/templates/mapper.java.vm");
-        tc.setXml("/templates/mapper.xml.vm");
-        tc.setService("/templates/service.java.vm");
-        tc.setServiceImpl("/templates/serviceImpl.java.vm");
+
+//        tc.setController(null);
+//        tc.setEntity("/templates/entity.java.vm");
+//        tc.setMapper("/templates/mapper.java.vm");
+//        tc.setXml("/templates/mapper.xml.vm");
+//        tc.setService("/templates/service.java.vm");
+//        tc.setServiceImpl("/templates/serviceImpl.java.vm");
+
+        tc.setEntity(null);
+        tc.setMapper(null);
+        tc.setXml(null);
+        tc.setService(null);
+        tc.setServiceImpl(null);
+        tc.setController("/templates/controller.java.vm");
         // 如上任何一个模块如果设置 空 OR Null 将不生成该模块。
         mpg.setTemplate(tc);
 

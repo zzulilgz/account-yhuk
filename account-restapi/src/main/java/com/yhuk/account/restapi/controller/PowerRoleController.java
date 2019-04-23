@@ -1,56 +1,42 @@
-package ${package.Controller};
+package com.yhuk.account.restapi.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
-import com.example.mybatisplus.utils.JsonUtils;
-import com.example.mybatisplus.utils.ResponseUtils;
-import com.example.mybatisplus.utils.ResponseUtils.Response;
+import com.yhuk.account.domain.entity.PowerRole;
+import com.yhuk.account.domain.service.PowerRoleService;
+import com.yhuk.account.domain.utils.JsonUtils;
+import com.yhuk.account.restapi.utils.ResponseUtils;
+import com.yhuk.account.restapi.utils.ResponseUtils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.yhuk.account.object.request.ListByPageQo;
-#if(${restControllerStyle})
-#else
 import org.springframework.stereotype.Controller;
-#end
-#if(${superControllerClassPackage})
-import ${superControllerClassPackage};
-#end
 
 /**
  * <p>
- * $!{table.comment} 前端控制器
+ *  前端控制器
  * </p>
  *
- * @author ${author}
- * @since ${date}
+ * @author zzulilgz
+ * @since 2019-04-23
  */
-#if(${restControllerStyle})
-@RestController
-#else
 @Controller
-#end
-@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
+@RequestMapping("/powerRole")
+public class PowerRoleController {
     private static Logger logger = LoggerFactory.getLogger("web");
 
 	@Autowired
-    ${table.serviceName} service;
+    PowerRoleService service;
 
     @GetMapping("/{id}")
-    public Response<${entity}> get(@PathVariable Integer id){
-        ${entity} model = service.getById(id);
+    public Response<PowerRole> get(@PathVariable Integer id){
+        PowerRole model = service.getById(id);
         return ResponseUtils.getSuccessJson(model);
     }
     @PostMapping
-    public Response<Integer> save(@RequestBody ${entity} model){
+    public Response<Integer> save(@RequestBody PowerRole model){
         service.save(model);
         return ResponseUtils.getSuccessJson(model.getId());
     }
@@ -60,7 +46,7 @@ public class ${table.controllerName} {
         return ResponseUtils.getSuccessJson(true);
     }
     @PutMapping("/{id}")
-    public Response<Boolean> update(@PathVariable Integer id,@RequestBody ${entity} model){
+    public Response<Boolean> update(@PathVariable Integer id,@RequestBody PowerRole model){
         model.setId(id);
         service.updateById(model);
         return ResponseUtils.getSuccessJson(true);

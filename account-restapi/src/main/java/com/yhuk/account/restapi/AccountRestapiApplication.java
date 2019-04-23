@@ -1,7 +1,6 @@
 package com.yhuk.account.restapi;
 
 
-import com.yhuk.account.domain.service.PowerUserService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,15 +19,6 @@ public class AccountRestapiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(AccountRestapiApplication.class, args);
-    }
-
-    @Autowired
-    PowerUserService userService;
-
-    @GetMapping
-    public String test(){
-        System.out.println(userService.find().toString());
-        return userService.list().toString();
     }
 
 }
