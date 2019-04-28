@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: account-restapi
+  profiles:
+    active:
+  cloud:
+    config:
+      uri: https://github.com/zzulilgz/yhuk-config-repo.git

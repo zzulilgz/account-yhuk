@@ -26,7 +26,7 @@ public class PowerUser extends Model<PowerUser> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
     /**
-     * 登录名称
+     * 登录名称 邮箱名称
      */
 	private String loginName;
     /**
