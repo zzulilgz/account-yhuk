@@ -1,4 +1,4 @@
-package com.yhuk.account.domain.utils;
+package com.yhuk.account.object.utils;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonGenerationException;

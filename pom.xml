@@ -12,6 +12,7 @@
         <module>account-domain</module>
         <module>account-restapi</module>
         <module>account-object</module>
+        <module>account-client</module>
     </modules>
 
     <properties>

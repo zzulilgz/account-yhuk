@@ -91,7 +91,7 @@ public class MySqlGenerator {
         // 自定义 controller 父类
         //strategy.setSuperControllerClass("cn.jeefast.common.base.BaseController");
         // 生成 RestController 风格
-        //strategy.setRestControllerStyle(true);
+        strategy.setRestControllerStyle(true);
 
         mpg.setStrategy(strategy);
 

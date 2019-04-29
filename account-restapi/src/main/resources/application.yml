@@ -5,7 +5,6 @@ server:
     min-spare-threads: 30
   port: 8081
   context-path: /account
-
 #mybatis:
 #  mapper-locations: classpath*:/mapping/*.xml
 #  type-aliases-package: com.yhuk.account.domain.entity
@@ -78,3 +77,14 @@ mybatis-plus:
 #    enabled: true
 #    #additional-exclude: views/**
 
+#注册中心管理
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    appname: account-yhuk
+    hostname: localhost
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 10

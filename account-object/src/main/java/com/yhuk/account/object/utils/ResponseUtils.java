@@ -1,6 +1,4 @@
-package com.yhuk.account.restapi.utils;
-
-import com.yhuk.account.domain.utils.JsonUtils;
+package com.yhuk.account.object.utils;
 
 /**
  * @author xiaolang

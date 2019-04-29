@@ -22,7 +22,7 @@ import org.springframework.stereotype.Controller;
  * @author zzulilgz
  * @since 2019-04-23
  */
-@Controller
+@RestController
 @RequestMapping("/powerOperation")
 public class PowerOperationController {
     private static Logger logger = LoggerFactory.getLogger("web");

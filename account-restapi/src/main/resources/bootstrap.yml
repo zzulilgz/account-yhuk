@@ -2,7 +2,12 @@ spring:
   application:
     name: account-restapi
   profiles:
-    active:
+    active: ${spring.profile.active:prod}
   cloud:
     config:
-      uri: https://github.com/zzulilgz/yhuk-config-repo.git
+      uri: http://localhost:8888
+  rabbitmq:
+    addresses: amqp://123.207.255.184:5672
+    username: admin
+    password: yhuk123
+
