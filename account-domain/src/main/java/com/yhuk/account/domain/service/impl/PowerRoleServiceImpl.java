@@ -2,6 +2,7 @@ package com.yhuk.account.domain.service.impl;
 
 import com.yhuk.account.domain.entity.PowerRole;
 import com.yhuk.account.domain.dao.PowerRoleDao;
+import com.yhuk.account.domain.entity.PowerRoleOperation;
 import com.yhuk.account.domain.service.PowerRoleService;
 import com.yhuk.account.domain.service.impl.BaseServiceImpl;
 
@@ -11,6 +12,8 @@ import com.yhuk.account.object.request.ListByPageQo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -26,7 +29,8 @@ public class PowerRoleServiceImpl extends BaseServiceImpl<PowerRoleDao, PowerRol
 
     @Autowired
     PowerRoleDao mapper;
-
+    @Autowired
+    PowerRoleOperation
     @Override
     public IPage find(ListByPageQo reqQo){
         QueryWrapper<PowerRole> queryWrapper = new QueryWrapper<>();
@@ -34,6 +38,12 @@ public class PowerRoleServiceImpl extends BaseServiceImpl<PowerRoleDao, PowerRol
         setQueryTimeType(queryWrapper,reqQo,"create_time");
 
         return mapper.selectPage(initPage(reqQo),queryWrapper);
+    }
+
+    @Override
+    public List<PowerRole> findByUser(Integer userId) {
+        QueryWrapper<PowerRole> queryWrapper = new QueryWrapper<>();
+        return null;
     }
 
 }

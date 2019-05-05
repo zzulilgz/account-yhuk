@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import com.yhuk.account.object.request.ListByPageQo;
+
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -16,4 +19,6 @@ import com.yhuk.account.object.request.ListByPageQo;
 public interface PowerRoleService extends IService<PowerRole> {
 
     IPage find(ListByPageQo reqQo);
+
+    List<PowerRole> findByUser(Integer userId);
 }

@@ -14,7 +14,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("accountapi")
 public interface UserClient {
 
-
-
-
 }

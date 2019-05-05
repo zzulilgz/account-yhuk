@@ -1,18 +1,24 @@
 package com.yhuk.account.restapi.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.domain.entity.PowerUser;
+import com.yhuk.account.domain.service.PowerRoleService;
 import com.yhuk.account.domain.service.PowerUserService;
-import com.yhuk.account.domain.utils.JsonUtils;
-import com.yhuk.account.restapi.utils.ResponseUtils;
-import com.yhuk.account.restapi.utils.ResponseUtils.Response;
+
+import com.yhuk.account.object.response.UserRolesBo;
+import com.yhuk.account.object.utils.JsonUtils;
+import com.yhuk.account.object.utils.ResponseUtils;
+import com.yhuk.account.object.utils.ResponseUtils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.yhuk.account.object.request.ListByPageQo;
 import org.springframework.stereotype.Controller;
+
+import java.sql.Wrapper;
 
 /**
  * <p>
@@ -29,10 +35,13 @@ public class PowerUserController {
 
 	@Autowired
     PowerUserService service;
+    @Autowired
+    PowerRoleService roleService;
 
     @GetMapping("/{id}")
     public Response<PowerUser> get(@PathVariable Integer id){
         PowerUser model = service.getById(id);
+        model.setPassword("*****");
         return ResponseUtils.getSuccessJson(model);
     }
     @PostMapping
@@ -53,7 +62,23 @@ public class PowerUserController {
     }
     @PostMapping("/list")
     public Response<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
-        logger.info("/list request:{}",JsonUtils.toJson(reqQo));
+        logger.info("/list request:{}", JsonUtils.toJson(reqQo));
         return ResponseUtils.getSuccessJson(service.find(reqQo));
     }
+
+    @GetMapping("/name/{login}")
+    public Response<UserRolesBo> findByLogin(@PathVariable("login") String loginName){
+        logger.info("/name/{}",loginName);
+        UserRolesBo userRolesBo = new UserRolesBo();
+
+        QueryWrapper<PowerUser> queryUser = new QueryWrapper<>();
+        queryUser.eq("login_name",loginName);
+        PowerUser powerUser = service.getOne(queryUser);
+
+        userRolesBo.setLoginName(powerUser.getLoginName());
+        userRolesBo.setPassword(powerUser.getPassword());
+
+    }
+
+
 }
