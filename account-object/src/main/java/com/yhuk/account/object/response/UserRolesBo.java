@@ -2,6 +2,9 @@ package com.yhuk.account.object.response;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,7 +20,7 @@ public class UserRolesBo {
 
     private String password; //密码用char存安全些
 
-    private Set<RoleBo> roles;
+    private List<RoleBo> roles = new ArrayList<>();
 
 
 }

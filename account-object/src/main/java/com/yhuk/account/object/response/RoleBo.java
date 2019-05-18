@@ -2,7 +2,7 @@ package com.yhuk.account.object.response;
 
 import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @Description TODO
@@ -17,7 +17,7 @@ public class RoleBo {
 
     private String name;
 
-    private Set<ResourceBo> resources;
+    private List<ResourceBo> resources;
 
 
 

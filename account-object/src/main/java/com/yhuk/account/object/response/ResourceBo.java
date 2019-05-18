@@ -11,10 +11,7 @@ import lombok.Data;
 @Data
 public class ResourceBo {
 
-
-
     private String name;
-
     private String path;
 
 }

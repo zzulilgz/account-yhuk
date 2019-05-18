@@ -1,6 +1,6 @@
 package com.yhuk.account.sso.service;
 
-import com.yhuk.account.domain.entity.PowerUser;
+import com.yhuk.account.object.response.UserRolesBo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,9 +13,9 @@ import java.util.Collection;
  * @Date 2019/4/29 16:41
  * @Version 1.0
  **/
-public class SecurityUser extends PowerUser implements UserDetails {
+public class SecurityUser extends UserRolesBo implements UserDetails {
 
-    public SecurityUser(PowerUser user) {
+    public SecurityUser(UserRolesBo user) {
         if(user!=null){
             BeanUtils.copyProperties(user,this);
         }

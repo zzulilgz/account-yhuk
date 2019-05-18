@@ -1,16 +1,22 @@
 package com.yhuk.account.domain.service.impl;
 
+import com.yhuk.account.domain.dao.PowerRoleOperationDao;
 import com.yhuk.account.domain.entity.PowerOperation;
 import com.yhuk.account.domain.dao.PowerOperationDao;
+import com.yhuk.account.domain.entity.PowerRoleOperation;
 import com.yhuk.account.domain.service.PowerOperationService;
-import com.yhuk.account.domain.service.impl.BaseServiceImpl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.object.request.ListByPageQo;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yhuk.account.object.response.ResourceBo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -26,6 +32,8 @@ public class PowerOperationServiceImpl extends BaseServiceImpl<PowerOperationDao
 
     @Autowired
     PowerOperationDao mapper;
+    @Autowired
+    PowerRoleOperationDao roleOperationDao;
 
     @Override
     public IPage find(ListByPageQo reqQo){
@@ -36,4 +44,30 @@ public class PowerOperationServiceImpl extends BaseServiceImpl<PowerOperationDao
         return mapper.selectPage(initPage(reqQo),queryWrapper);
     }
 
+    @Override
+    public List<ResourceBo> findByRole(Integer roleId) {
+        Assert.notNull(roleId,"角色ID不能为空");
+
+        List<ResourceBo> resourceBos = new ArrayList<>();
+        //查找关联
+        QueryWrapper<PowerRoleOperation> roleOperationQueryWrapper =
+                new QueryWrapper<>();
+        roleOperationQueryWrapper.eq("role_id",roleId);
+        List<PowerRoleOperation> powerRoleOperations =
+                roleOperationDao.selectList(roleOperationQueryWrapper);
+        List<Integer> resourceIds = powerRoleOperations.stream().map(
+                PowerRoleOperation::getOperationId).collect(Collectors.toList());
+        //查找resource
+        QueryWrapper<PowerOperation> operationQueryWrapper = new QueryWrapper<>();
+        operationQueryWrapper.in("id",resourceIds);
+        List<PowerOperation> powerOperations = mapper.selectList(operationQueryWrapper);
+        for (PowerOperation powerOperation : powerOperations) {
+            ResourceBo resourceBo = new ResourceBo();
+            resourceBo.setName(powerOperation.getName());
+            resourceBo.setPath(powerOperation.getPath());
+
+            resourceBos.add(resourceBo);
+        }
+        return resourceBos;
+    }
 }

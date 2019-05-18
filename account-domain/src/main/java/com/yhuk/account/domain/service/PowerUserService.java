@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import com.yhuk.account.object.request.ListByPageQo;
+import com.yhuk.account.object.response.UserRolesBo;
+
 /**
  * <p>
  *  服务类
@@ -16,4 +18,12 @@ import com.yhuk.account.object.request.ListByPageQo;
 public interface PowerUserService extends IService<PowerUser> {
 
     IPage find(ListByPageQo reqQo);
+
+    /**
+     * 根据登录名获取用户所具有的资源权限
+     *
+     * @param loginName
+     * @return
+     */
+    UserRolesBo findResourceByLoginName(String loginName);
 }

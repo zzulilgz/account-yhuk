@@ -16,12 +16,10 @@
 
     <description>sso</description>
 
-
     <dependencies>
-
         <dependency>
             <groupId>com.yhuk</groupId>
-            <artifactId>account-domain</artifactId>
+            <artifactId>account-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

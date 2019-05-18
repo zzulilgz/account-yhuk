@@ -4,10 +4,12 @@ package com.yhuk.account.restapi.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.domain.entity.PowerMenu;
 import com.yhuk.account.domain.service.PowerMenuService;
-import com.yhuk.account.domain.utils.JsonUtils;
+
 import com.yhuk.account.object.request.ListByPageQo;
-import com.yhuk.account.restapi.utils.ResponseUtils;
-import com.yhuk.account.restapi.utils.ResponseUtils.Response;
+
+import com.yhuk.account.object.utils.JsonUtils;
+import com.yhuk.account.object.utils.ResponseUtils;
+import com.yhuk.account.object.utils.ResponseUtils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,7 @@ public class PowerMenuController {
     }
     @PostMapping("/list")
     public Response<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
-        logger.info("/list request:{}",JsonUtils.toJson(reqQo));
+        logger.info("/list request:{}", JsonUtils.toJson(reqQo));
         return ResponseUtils.getSuccessJson(service.find(reqQo));
     }
 }

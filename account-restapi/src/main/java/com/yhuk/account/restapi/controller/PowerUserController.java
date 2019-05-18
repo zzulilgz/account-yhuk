@@ -69,15 +69,10 @@ public class PowerUserController {
     @GetMapping("/name/{login}")
     public Response<UserRolesBo> findByLogin(@PathVariable("login") String loginName){
         logger.info("/name/{}",loginName);
-        UserRolesBo userRolesBo = new UserRolesBo();
 
-        QueryWrapper<PowerUser> queryUser = new QueryWrapper<>();
-        queryUser.eq("login_name",loginName);
-        PowerUser powerUser = service.getOne(queryUser);
-
-        userRolesBo.setLoginName(powerUser.getLoginName());
-        userRolesBo.setPassword(powerUser.getPassword());
-
+        UserRolesBo userRolesBo= service.findResourceByLoginName(loginName);
+        
+        return ResponseUtils.getSuccessJson(userRolesBo);
     }
 
 
