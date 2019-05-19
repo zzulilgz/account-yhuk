@@ -30,7 +30,7 @@ public class PowerRole extends Model<PowerRole> {
      * 描述
      */
 	private String remark;
-	private LocalDateTime create;
+	private LocalDateTime createTime;
 
 
 	public Integer getId() {
@@ -57,12 +57,12 @@ public class PowerRole extends Model<PowerRole> {
 		this.remark = remark;
 	}
 
-	public LocalDateTime getCreate() {
-		return create;
+	public LocalDateTime getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreate(LocalDateTime create) {
-		this.create = create;
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class PowerRole extends Model<PowerRole> {
 			", id=" + id +
 			", name=" + name +
 			", remark=" + remark +
-			", create=" + create +
+			", create=" + createTime +
 			"}";
 	}
 }

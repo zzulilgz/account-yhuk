@@ -10,8 +10,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-
-//默认只扫描启动类同级的包
 @ComponentScan(basePackages ={"com.yhuk.account"})
 @MapperScan("com.yhuk.account.*.dao")
 @RestController

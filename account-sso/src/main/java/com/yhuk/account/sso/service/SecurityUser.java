@@ -19,7 +19,6 @@ public class SecurityUser extends UserRolesBo implements UserDetails {
         if(user!=null){
             BeanUtils.copyProperties(user,this);
         }
-
     }
 
     @Override

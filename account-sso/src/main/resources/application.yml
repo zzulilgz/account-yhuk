@@ -1,5 +1,12 @@
 server:
   port: 8000
-  session:
-    cookie:
-      name: SESSIONID
+  servlet:
+    session:
+      cookie:
+        name: SESSIONID
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://123.207.255.184:3306/yhuk_power?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf-8
+    username: root
+    password: aca1b7dd6d4ed58e320288fbb343240b

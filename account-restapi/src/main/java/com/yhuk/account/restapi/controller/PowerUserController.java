@@ -1,7 +1,6 @@
 package com.yhuk.account.restapi.controller;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.domain.entity.PowerUser;
 import com.yhuk.account.domain.service.PowerRoleService;
@@ -38,6 +37,16 @@ public class PowerUserController {
     @Autowired
     PowerRoleService roleService;
 
+    /**
+     * 根据登录名称获取可操作权限
+     * @param loginName
+     * @return
+     */
+    @GetMapping("/getResources/{loginName}")
+    public Response<UserRolesBo> getResources(@PathVariable String loginName){
+        UserRolesBo userRolesBo = service.findResourceByLoginName(loginName);
+        return ResponseUtils.getSuccessJson(userRolesBo);
+    }
     @GetMapping("/{id}")
     public Response<PowerUser> get(@PathVariable Integer id){
         PowerUser model = service.getById(id);
