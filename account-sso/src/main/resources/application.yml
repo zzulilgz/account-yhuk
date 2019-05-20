@@ -4,6 +4,7 @@ server:
     session:
       cookie:
         name: SESSIONID
+    context-path: /sso
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver

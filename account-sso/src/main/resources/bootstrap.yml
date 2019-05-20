@@ -5,7 +5,7 @@ spring:
       active: ${spring.profile.active:dev}
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://123.207.255.184:8888
   rabbitmq:
     addresses: amqp://123.207.255.184:5672
     username: admin
@@ -15,7 +15,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://123.207.255.184:8761/eureka/
   instance:
     appname: account-sso
     hostname: localhost

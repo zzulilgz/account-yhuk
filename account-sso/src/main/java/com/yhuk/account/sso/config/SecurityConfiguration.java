@@ -16,43 +16,43 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 
 import javax.sql.DataSource;
 
+@Configuration
+public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 
-public class SecurityConfiguration  {
+    @Autowired
+    private PowerUserDetailsService powerUserDetailsService;
 
-//    @Autowired
-//    private PowerUserDetailsService powerUserDetailsService;
-//
-//    @Autowired
-//    @Qualifier("dataSource")
-//    private DataSource dataSource;
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(powerUserDetailsService);
-//        super.configure(auth);
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.formLogin().loginPage("/login").permitAll()
-//                .and().authorizeRequests()
-//                .antMatchers("/images/**", "/checkcode", "/scripts/**", "/styles/**").permitAll()
-//                .anyRequest().authenticated()
-//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
-//                .and().exceptionHandling().accessDeniedPage("/deny")
-//                .and().rememberMe().tokenValiditySeconds(86400).tokenRepository(tokenRepository());//记住24小时
-//    }
-//
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Bean
-//    public JdbcTokenRepositoryImpl tokenRepository(){
-//        JdbcTokenRepositoryImpl jtr = new JdbcTokenRepositoryImpl();
-//        jtr.setDataSource(dataSource);
-//        return jtr;
-//    }
+    @Autowired
+    @Qualifier("dataSource")
+    private DataSource dataSource;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(powerUserDetailsService);
+        super.configure(auth);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.formLogin().loginPage("/login").permitAll()
+                .and().authorizeRequests()
+                .antMatchers("/images/**", "/checkcode", "/scripts/**", "/styles/**").permitAll()
+                .anyRequest().authenticated()
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
+                .and().exceptionHandling().accessDeniedPage("/deny")
+                .and().rememberMe().tokenValiditySeconds(86400).tokenRepository(tokenRepository());//记住24小时
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public JdbcTokenRepositoryImpl tokenRepository(){
+        JdbcTokenRepositoryImpl jtr = new JdbcTokenRepositoryImpl();
+        jtr.setDataSource(dataSource);
+        return jtr;
+    }
 
 }
