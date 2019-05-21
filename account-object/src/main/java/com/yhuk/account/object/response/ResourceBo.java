@@ -14,6 +14,9 @@ public class ResourceBo {
     private String name;
     private String path;
 
+    public ResourceBo() {
+    }
+
     public ResourceBo(String name, String path) {
         this.name = name;
         this.path = path;
