@@ -8,7 +8,7 @@
         <version>1.0-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.yhuk.account.sso</groupId>
+    <groupId>com.yhuk.account</groupId>
     <artifactId>account-sso</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>account-sso</name>
@@ -18,7 +18,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.yhuk</groupId>
+            <groupId>com.yhuk.account</groupId>
             <artifactId>account-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

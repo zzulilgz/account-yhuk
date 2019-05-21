@@ -1,11 +1,15 @@
 package com.yhuk.account.sso.service;
 
+import com.yhuk.account.object.response.ResourceBo;
+import com.yhuk.account.object.response.RoleBo;
 import com.yhuk.account.object.response.UserRolesBo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @Description TODO
@@ -23,31 +27,39 @@ public class SecurityUser extends UserRolesBo implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<MyGrantedAuthority> list = new ArrayList<>();
+        for (RoleBo role : this.getRoles()) {
+            List<ResourceBo> resources = role.getResources();
+            for (ResourceBo resource : resources) {
+                list.add(new MyGrantedAuthority(resource.getPath()));
+            }
+        }
+        return list;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.getLoginName();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
+
 }
