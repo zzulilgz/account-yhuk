@@ -1,6 +1,7 @@
 package com.yhuk.account.object.response;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @Description TODO

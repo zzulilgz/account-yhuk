@@ -7,7 +7,7 @@
         <groupId>com.yhuk</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.yhuk</groupId>
+    <groupId>com.yhuk.account</groupId>
     <artifactId>account-restapi</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>account-restapi</name>

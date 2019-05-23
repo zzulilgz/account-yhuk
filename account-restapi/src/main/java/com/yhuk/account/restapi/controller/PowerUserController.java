@@ -13,6 +13,7 @@ import com.yhuk.account.object.utils.ResponseUtils.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.yhuk.account.object.request.ListByPageQo;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ import java.sql.Wrapper;
  * @since 2019-04-23
  */
 @RestController
-@RequestMapping("/powerUser")
+@RequestMapping(value="/powerUser")
 public class PowerUserController {
     private static Logger logger = LoggerFactory.getLogger("web");
 

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @ComponentScan(basePackages ={"com.yhuk.account"})
 @MapperScan("com.yhuk.account.*.dao")
-@RestController
-@EnableDiscoveryClient
+@EnableDiscoveryClient(autoRegister = true)  //单机测试不注册改为 false
 public class AccountRestapiApplication {
 
     public static void main(String[] args) {

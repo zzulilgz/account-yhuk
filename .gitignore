@@ -31,7 +31,6 @@ hs_err_pid*
 *.iml
 out
 gen
-.gitignore
 .idea/
 account-client/account-client.iml
 account-domain/account-domain.iml
@@ -39,3 +38,7 @@ account-domain/target/
 account-object/account-object.iml
 account-object/target/
 account-yhuk.iml
+
+
+**/mvnw
+**/mvnw.cmd
