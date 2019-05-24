@@ -4,6 +4,7 @@ package com.yhuk.account.restapi.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.domain.entity.PowerRole;
 import com.yhuk.account.domain.service.PowerRoleService;
+import com.yhuk.account.object.response.RoleBo;
 import com.yhuk.account.object.utils.JsonUtils;
 import com.yhuk.account.object.utils.ResponseUtils;
 import com.yhuk.account.object.utils.ResponseUtils.Response;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import com.yhuk.account.object.request.ListByPageQo;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
 /**
  * <p>
  *  前端控制器
@@ -23,13 +26,18 @@ import org.springframework.stereotype.Controller;
  * @since 2019-04-23
  */
 @RestController
-@RequestMapping("/powerRole")
+@RequestMapping("/role")
 public class PowerRoleController {
     private static Logger logger = LoggerFactory.getLogger("web");
 
 	@Autowired
     PowerRoleService service;
 
+    @GetMapping("/list/roleResource")
+    public Response<List<RoleBo>> listRoleResource(){
+        List<RoleBo> list = service.findList();
+        return ResponseUtils.getSuccessJson(list);
+    }
     @GetMapping("/{id}")
     public Response<PowerRole> get(@PathVariable Integer id){
         PowerRole model = service.getById(id);
@@ -56,4 +64,6 @@ public class PowerRoleController {
         logger.info("/list request:{}",JsonUtils.toJson(reqQo));
         return ResponseUtils.getSuccessJson(service.find(reqQo));
     }
+
+
 }

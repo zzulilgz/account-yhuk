@@ -27,4 +27,6 @@ public interface PowerRoleService extends IService<PowerRole> {
      * @return
      */
     List<RoleBo> findByUser(Integer userId);
+
+    List<RoleBo> findList();
 }

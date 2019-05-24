@@ -50,8 +50,6 @@ public class PowerRoleServiceImpl extends BaseServiceImpl<PowerRoleDao, PowerRol
     public List<RoleBo> findByUser(Integer userId) {
         Assert.notNull(userId,"userId不能为空");
 
-        List<RoleBo> roleBos = new ArrayList<>();
-
         QueryWrapper<PowerRoleUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id",userId);
         List<PowerRoleUser> powerRoleUsers = roleUserDao.selectList(queryWrapper);
@@ -61,15 +59,29 @@ public class PowerRoleServiceImpl extends BaseServiceImpl<PowerRoleDao, PowerRol
                 powerRoleUsers.stream().map(PowerRoleUser::getRoleId).collect(Collectors.toList()));
         List<PowerRole> powerRoles = mapper.selectList(roleWrapper);
 
-        for (PowerRole powerRole : powerRoles) {
-            RoleBo roleBo = new RoleBo();
-            roleBo.setId(powerRole.getId());
-            roleBo.setName(powerRole.getName());
-            roleBo.setResources(operationService.findByRole(powerRole.getId()));
+        return convertListBo(powerRoles);
+    }
 
-            roleBos.add(roleBo);
+    @Override
+    public List<RoleBo> findList() {
+        List<PowerRole> powerRoles = mapper.selectList(new QueryWrapper<>());
+        return convertListBo(powerRoles);
+    }
+
+    private List<RoleBo> convertListBo(List<PowerRole> list){
+        List<RoleBo> roleBos = new ArrayList<>();
+        for (PowerRole powerRole : list) {
+            roleBos.add(convertBo(powerRole));
         }
         return roleBos;
+    }
+
+    private RoleBo convertBo(PowerRole powerRole) {
+        RoleBo roleBo = new RoleBo();
+        roleBo.setId(powerRole.getId());
+        roleBo.setName(powerRole.getName());
+        roleBo.setResources(operationService.findByRole(powerRole.getId()));
+        return roleBo;
     }
 
 }
