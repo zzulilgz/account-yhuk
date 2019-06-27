@@ -10,6 +10,7 @@ import com.yhuk.account.object.request.ListByPageQo;
 import com.yhuk.account.object.utils.JsonUtils;
 import com.yhuk.account.object.utils.ResponseUtils;
 import com.yhuk.account.object.utils.ResponseUtils.Response;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

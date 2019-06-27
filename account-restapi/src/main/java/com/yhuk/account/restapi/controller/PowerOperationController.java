@@ -34,6 +34,7 @@ public class PowerOperationController {
         PowerOperation model = service.getById(id);
         return ResponseUtils.getSuccessJson(model);
     }
+
     @PostMapping
     public Response<Integer> save(@RequestBody PowerOperation model){
         service.save(model);

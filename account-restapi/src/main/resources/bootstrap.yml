@@ -19,7 +19,7 @@ eureka:
     service-url:
         defaultZone: http://123.207.255.184:8761/eureka/
   instance:
-    appname: account-yhuk
+    appname: account-restapi
     hostname: localhost
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 10

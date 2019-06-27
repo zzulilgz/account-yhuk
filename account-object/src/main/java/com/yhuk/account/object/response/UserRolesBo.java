@@ -16,6 +16,8 @@ import java.util.Set;
 @Data
 public class UserRolesBo {
 
+    private Integer id;
+
     private String loginName;
 
     private String password; //密码用char存安全些

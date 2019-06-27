@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import com.yhuk.account.object.request.ListByPageQo;
 import org.springframework.stereotype.Controller;
@@ -50,6 +52,8 @@ public class PowerUserController {
     }
     @GetMapping("/{id}")
     public Response<PowerUser> get(@PathVariable Integer id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(JsonUtils.toJson(authentication));
         PowerUser model = service.getById(id);
         model.setPassword("*****");
         return ResponseUtils.getSuccessJson(model);
