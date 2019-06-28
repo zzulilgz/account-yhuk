@@ -4,11 +4,13 @@ import com.yhuk.account.domain.service.PowerRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @Description TODO
@@ -17,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @Version 1.0
  **/
 @Configuration
+@Order(1)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -30,11 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.authorizeRequests()
                 .anyRequest().authenticated() //任何请求,登录后可以访问
                 .and()
                 .formLogin().disable().httpBasic().disable();
-        http.addFilterBefore(customFilter(), MyFilterSecurityInterceptor.class)
+        http.addFilterBefore(customFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
 
     }
