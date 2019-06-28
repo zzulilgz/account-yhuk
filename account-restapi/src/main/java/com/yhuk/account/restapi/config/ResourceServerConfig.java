@@ -24,13 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    @Autowired
-    private JwtAuthenticationConfig config;
 
-    @Bean
-    public JwtAuthenticationConfig jwtConfig() {
-        return new JwtAuthenticationConfig();
-    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -65,4 +60,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         jwtAccessTokenConverter.setSigningKey("base-yhuk");
         return jwtAccessTokenConverter;
     }
+
+
+
 }
