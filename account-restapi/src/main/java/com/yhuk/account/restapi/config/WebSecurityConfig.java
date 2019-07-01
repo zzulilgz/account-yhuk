@@ -19,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @Version 1.0
  **/
 @Configuration
-@Order(1)
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -35,11 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .anyRequest().authenticated() //任何请求,登录后可以访问
+                .anyRequest().authenticated()
                 .and()
                 .formLogin().disable().httpBasic().disable();
-        http.addFilterBefore(customFilter(), UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable();
+//        http.addFilterBefore(customFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .csrf().disable();
 
     }
 

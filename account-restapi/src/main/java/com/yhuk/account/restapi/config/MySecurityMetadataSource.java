@@ -13,6 +13,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -56,8 +57,9 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object)
             throws IllegalArgumentException {
-        String url = ((FilterInvocation) object).getRequestUrl();
-
+        String url = ((FilterInvocation) object).getRequest().getRequestURI();
+        HttpServletRequest request = ((FilterInvocation) object).getRequest();
+        String contextPath = request.getContextPath();
         logger.info("请求资源：" + url);
         //先从缓存中取角色列表
         //Object objects = cacheComponent.get(MERCHANT_CENTER_ROLES_ALL, "LIST");
@@ -77,8 +79,8 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
                 List<ResourceBo> resourceQos = roleBo.getResources();
                 if(resourceQos != null && resourceQos.size() > 0) {
                     for (ResourceBo resourceBo : resourceQos) {//循环资源列表
-                        if (resourceBo.getPath() != null && pathMatcher.match("**/"+resourceBo.getPath()+"/**", url)) {
-                            ConfigAttribute attribute = new SecurityConfig(roleBo.getName());
+                        if (resourceBo.getPath() != null && pathMatcher.match(resourceBo.getPath()+"/**", url)) {
+                            ConfigAttribute attribute = new SecurityConfig(roleBo.getId().toString());
                             roles.add(attribute);
                             logger.info("加入权限角色列表===角色资源：{}，角色名称：{}===", resourceBo.getPath(), roleBo.getName());
                             break;
@@ -86,6 +88,9 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
                     }
                 }
             }
+        }
+        if (roles.size() == 0) {
+            roles.add(new SecurityConfig("0"));
         }
         logger.info("roles:{}", JsonUtils.toJson(roles));
         return roles;

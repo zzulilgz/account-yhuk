@@ -3,14 +3,17 @@ package com.yhuk.account.restapi.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
+import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.vote.AbstractAccessDecisionManager;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @Description 权限判断
@@ -22,10 +25,12 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 
     private static final Logger logger = LoggerFactory.getLogger(MyAccessDecisionManager.class);
 
+
     @Override
     public void decide(Authentication authentication, Object object,
                        Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
+        System.out.println("test--");
         if (configAttributes == null) {
             return;
         }
