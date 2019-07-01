@@ -30,7 +30,6 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object object,
                        Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
-        System.out.println("test--");
         if (configAttributes == null) {
             return;
         }
