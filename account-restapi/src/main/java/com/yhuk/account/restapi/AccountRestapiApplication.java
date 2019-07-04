@@ -17,5 +17,4 @@ public class AccountRestapiApplication {
         SpringApplication.run(AccountRestapiApplication.class, args);
     }
 
-
 }
