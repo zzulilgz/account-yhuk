@@ -8,6 +8,7 @@ import com.yhuk.account.object.request.ListByPageQo;
 import com.yhuk.account.object.utils.JsonUtils;
 import com.yhuk.account.object.utils.ResponseUtils;
 import com.yhuk.account.object.utils.ResponseUtils.Response;
+import com.yhuk.common.object.ResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,30 +31,30 @@ public class PowerOperationController {
     PowerOperationService service;
 
     @GetMapping("/{id}")
-    public Response<PowerOperation> get(@PathVariable Integer id){
+    public ResponseVO<PowerOperation> get(@PathVariable Integer id){
         PowerOperation model = service.getById(id);
-        return ResponseUtils.getSuccessJson(model);
+        return new ResponseVO<>(model);
     }
 
     @PostMapping
-    public Response<Integer> save(@RequestBody PowerOperation model){
+    public ResponseVO<Integer> save(@RequestBody PowerOperation model){
         service.save(model);
-        return ResponseUtils.getSuccessJson(model.getId());
+        return new ResponseVO<>(model.getId());
     }
     @DeleteMapping("/{id}")
-    public Response<Boolean> delete(@PathVariable Integer id){
+    public ResponseVO<Boolean> delete(@PathVariable Integer id){
         service.removeById(id);
-        return ResponseUtils.getSuccessJson(true);
+        return new ResponseVO<>(true);
     }
     @PutMapping("/{id}")
-    public Response<Boolean> update(@PathVariable Integer id,@RequestBody PowerOperation model){
+    public ResponseVO<Boolean> update(@PathVariable Integer id,@RequestBody PowerOperation model){
         model.setId(id);
         service.updateById(model);
-        return ResponseUtils.getSuccessJson(true);
+        return new ResponseVO<>(true);
     }
     @PostMapping("/list")
-    public Response<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
+    public ResponseVO<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
         logger.info("/list request:{}",JsonUtils.toJson(reqQo));
-        return ResponseUtils.getSuccessJson(service.find(reqQo));
+        return new ResponseVO<>(service.find(reqQo));
     }
 }

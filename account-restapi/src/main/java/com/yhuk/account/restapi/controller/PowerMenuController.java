@@ -4,17 +4,14 @@ package com.yhuk.account.restapi.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.domain.entity.PowerMenu;
 import com.yhuk.account.domain.service.PowerMenuService;
-
 import com.yhuk.account.object.request.ListByPageQo;
-
 import com.yhuk.account.object.utils.JsonUtils;
-import com.yhuk.account.object.utils.ResponseUtils;
-import com.yhuk.account.object.utils.ResponseUtils.Response;
-import io.swagger.annotations.Api;
+import com.yhuk.common.object.ResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 /**
  * <p>
@@ -25,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2019-04-23
  */
 @RestController
-@RequestMapping("/powerMenu")
+@RequestMapping("/menu")
 public class PowerMenuController {
     private static Logger logger = LoggerFactory.getLogger("web");
 
@@ -33,29 +30,33 @@ public class PowerMenuController {
     PowerMenuService service;
 
     @GetMapping("/{id}")
-    public Response<PowerMenu> get(@PathVariable Integer id){
+    public ResponseVO<PowerMenu> get(@PathVariable Integer id){
         PowerMenu model = service.getById(id);
-        return ResponseUtils.getSuccessJson(model);
+        return new ResponseVO<>(model);
     }
     @PostMapping
-    public Response<Integer> save(@RequestBody PowerMenu model){
+    public ResponseVO<Integer> save(@RequestBody PowerMenu model){
         service.save(model);
-        return ResponseUtils.getSuccessJson(model.getId());
+        return new ResponseVO<>(model.getId());
     }
     @DeleteMapping("/{id}")
-    public Response<Boolean> delete(@PathVariable Integer id){
+    public ResponseVO<Boolean> delete(@PathVariable Integer id){
         service.removeById(id);
-        return ResponseUtils.getSuccessJson(true);
+        return new ResponseVO<>(true);
     }
     @PutMapping("/{id}")
-    public Response<Boolean> update(@PathVariable Integer id,@RequestBody PowerMenu model){
+    public ResponseVO<Boolean> update(@PathVariable Integer id,@RequestBody PowerMenu model){
         model.setId(id);
         service.updateById(model);
-        return ResponseUtils.getSuccessJson(true);
+        return new ResponseVO<>(true);
     }
     @PostMapping("/list")
-    public Response<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
+    public ResponseVO<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
         logger.info("/list request:{}", JsonUtils.toJson(reqQo));
-        return ResponseUtils.getSuccessJson(service.find(reqQo));
+        return new ResponseVO<>(service.find(reqQo));
     }
+//    @GetMapping
+//    public ResponseVO<Object> findAll(){
+//        logger.info("menu findAll");
+//    }
 }

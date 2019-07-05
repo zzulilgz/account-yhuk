@@ -43,7 +43,7 @@ public class PowerUserServiceImpl extends BaseServiceImpl<PowerUserDao, PowerUse
 
         setQueryTimeType(queryWrapper,reqQo,"create_time");
 
-        return mapper.selectPage(initPage(reqQo),queryWrapper);
+        return mapper.selectPage(initPage(reqQo), queryWrapper);
     }
 
     @Override

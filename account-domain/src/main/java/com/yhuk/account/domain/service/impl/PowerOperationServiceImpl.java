@@ -13,8 +13,10 @@ import com.yhuk.account.object.response.ResourceBo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +59,9 @@ public class PowerOperationServiceImpl extends BaseServiceImpl<PowerOperationDao
                 roleOperationDao.selectList(roleOperationQueryWrapper);
         List<Integer> resourceIds = powerRoleOperations.stream().map(
                 PowerRoleOperation::getOperationId).collect(Collectors.toList());
+        if(CollectionUtils.isEmpty(resourceIds)){
+            return Collections.emptyList();
+        }
         //查找resource
         QueryWrapper<PowerOperation> operationQueryWrapper = new QueryWrapper<>();
         operationQueryWrapper.in("id",resourceIds);

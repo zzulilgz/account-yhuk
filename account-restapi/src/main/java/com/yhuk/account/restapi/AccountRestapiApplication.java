@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages ={"com.yhuk.account"})
-@MapperScan("com.yhuk.account.*.dao")
 @EnableDiscoveryClient(autoRegister = true)  //单机测试不注册改为 false
 public class AccountRestapiApplication {
     

@@ -10,6 +10,7 @@ import com.yhuk.account.object.response.UserRolesBo;
 import com.yhuk.account.object.utils.JsonUtils;
 import com.yhuk.account.object.utils.ResponseUtils;
 import com.yhuk.account.object.utils.ResponseUtils.Response;
+import com.yhuk.common.object.ResponseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import java.sql.Wrapper;
  * @since 2019-04-23
  */
 @RestController
-@RequestMapping(value="/powerUser")
+@RequestMapping(value="/user")
 public class PowerUserController {
     private static Logger logger = LoggerFactory.getLogger("web");
 
@@ -45,48 +46,47 @@ public class PowerUserController {
      * @param loginName
      * @return
      */
-    @GetMapping("/getResources/{loginName}")
-    public Response<UserRolesBo> getResources(@PathVariable String loginName){
+    @GetMapping("/resources/{loginName}")
+    public ResponseVO<UserRolesBo> getResources(@PathVariable String loginName){
         UserRolesBo userRolesBo = service.findResourceByLoginName(loginName);
-        return ResponseUtils.getSuccessJson(userRolesBo);
+        return new ResponseVO<>(userRolesBo);
     }
-    @GetMapping("/{id}")
-    public Response<PowerUser> get(@PathVariable Integer id){
+    @GetMapping("/id/{id}")
+    public ResponseVO<PowerUser> get(@PathVariable Integer id){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(JsonUtils.toJson(authentication));
         PowerUser model = service.getById(id);
         model.setPassword("*****");
-        return ResponseUtils.getSuccessJson(model);
+        return new ResponseVO<>(model);
     }
     @PostMapping
-    public Response<Integer> save(@RequestBody PowerUser model){
+    public ResponseVO<Integer> save(@RequestBody PowerUser model){
         service.save(model);
-        return ResponseUtils.getSuccessJson(model.getId());
+        return new ResponseVO<>(model.getId());
     }
-    @DeleteMapping("/{id}")
-    public Response<Boolean> delete(@PathVariable Integer id){
+    @DeleteMapping("/id/{id}")
+    public ResponseVO<Boolean> delete(@PathVariable Integer id){
         service.removeById(id);
-        return ResponseUtils.getSuccessJson(true);
+        return new ResponseVO<>(true);
     }
-    @PutMapping("/{id}")
-    public Response<Boolean> update(@PathVariable Integer id,@RequestBody PowerUser model){
+    @PutMapping("/id/{id}")
+    public ResponseVO<Boolean> update(@PathVariable Integer id,@RequestBody PowerUser model){
         model.setId(id);
         service.updateById(model);
-        return ResponseUtils.getSuccessJson(true);
+        return new ResponseVO<>(true);
     }
     @PostMapping("/list")
-    public Response<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
+    public ResponseVO<IPage> find(@RequestBody(required = false) ListByPageQo reqQo){
         logger.info("/list request:{}", JsonUtils.toJson(reqQo));
-        return ResponseUtils.getSuccessJson(service.find(reqQo));
+        new ResponseVO<>(service.find(reqQo));
+        return new ResponseVO<>(service.find(reqQo));
     }
 
     @GetMapping("/name/{login}")
-    public Response<UserRolesBo> findByLogin(@PathVariable("login") String loginName){
+    public ResponseVO<UserRolesBo> findByLogin(@PathVariable("login") String loginName){
         logger.info("/name/{}",loginName);
-
         UserRolesBo userRolesBo= service.findResourceByLoginName(loginName);
-        
-        return ResponseUtils.getSuccessJson(userRolesBo);
+        return new ResponseVO<>(userRolesBo);
     }
 
 

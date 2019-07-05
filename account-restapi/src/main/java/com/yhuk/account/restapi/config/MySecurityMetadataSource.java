@@ -79,7 +79,7 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
                 List<ResourceBo> resourceQos = roleBo.getResources();
                 if(resourceQos != null && resourceQos.size() > 0) {
                     for (ResourceBo resourceBo : resourceQos) {//循环资源列表
-                        if (resourceBo.getPath() != null && pathMatcher.match(resourceBo.getPath()+"/**", url)) {
+                        if (resourceBo.getPath() != null && pathMatcher.match("/**"+resourceBo.getPath()+"/**", url)) {
                             ConfigAttribute attribute = new SecurityConfig(roleBo.getId().toString());
                             roles.add(attribute);
                             logger.info("加入权限角色列表===角色资源：{}，角色名称：{}===", resourceBo.getPath(), roleBo.getName());
@@ -99,5 +99,13 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
     @Override
     public boolean supports(Class<?> clazz) {
         return true;
+    }
+
+
+    public static void main(String[] args) {
+        PathMatcher pathMatcher = new AntPathMatcher();
+        boolean match = pathMatcher.match("/**/account/user/**", "/account/user/2");
+        System.out.println(match);
+
     }
 }

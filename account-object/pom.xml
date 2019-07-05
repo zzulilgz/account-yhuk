@@ -13,6 +13,11 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>com.yhuk.common</groupId>
+            <artifactId>common-object</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
