@@ -11,6 +11,7 @@ import com.yhuk.account.object.utils.JsonUtils;
 import com.yhuk.account.object.utils.ResponseUtils;
 import com.yhuk.account.object.utils.ResponseUtils.Response;
 import com.yhuk.common.object.ResponseVO;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

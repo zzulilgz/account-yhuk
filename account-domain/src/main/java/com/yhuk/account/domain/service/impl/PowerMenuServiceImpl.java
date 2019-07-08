@@ -43,6 +43,8 @@ public class PowerMenuServiceImpl extends BaseServiceImpl<PowerMenuDao, PowerMen
     @Override
     public MenuTreeBo getTreeMenu() {
         MenuTreeBo menuTreeBo = new MenuTreeBo(); //最顶级父级菜单
+        menuTreeBo.setId(-1);
+        menuTreeBo.setLabel("所有菜单");
         recursion(menuTreeBo);
         return menuTreeBo;
     }

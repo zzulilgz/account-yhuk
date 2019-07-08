@@ -32,15 +32,15 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         ParameterBuilder tokenPar = new ParameterBuilder();
         List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("accessToken").description("AccessToken令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        tokenPar.name("Authorization").description("bearer AccessToken令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
         pars.add(tokenPar.build());
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.yhuk.account.restapi.controller"))
-                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+//                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build().globalOperationParameters(pars);
     }
