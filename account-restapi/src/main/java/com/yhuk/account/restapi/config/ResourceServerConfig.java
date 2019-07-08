@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
@@ -39,11 +40,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
             .and()
                // .addFilterAfter(new JwtTokenAuthenticationFilter(config), UsernamePasswordAuthenticationFilter.class)
-            .authorizeRequests().antMatchers("/powerUser/name/**").permitAll()
+            .authorizeRequests()
+                .antMatchers("/v2/api-docs", "/swagger-resources/configuration/ui",
+                        "/swagger-resources","/swagger-resources/configuration/security",
+                        "/swagger-ui.html","/course/coursebase/**").permitAll()
             .anyRequest().authenticated()
                 .and()
             .httpBasic().disable();
     }
+
+
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {

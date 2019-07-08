@@ -89,9 +89,9 @@ public class MySecurityMetadataSource implements FilterInvocationSecurityMetadat
                 }
             }
         }
-        if (roles.size() == 0) {
-            roles.add(new SecurityConfig("0"));
-        }
+//        if (roles.size() == 0) {
+//            roles.add(new SecurityConfig("0"));
+//        }
         logger.info("roles:{}", JsonUtils.toJson(roles));
         return roles;
     }

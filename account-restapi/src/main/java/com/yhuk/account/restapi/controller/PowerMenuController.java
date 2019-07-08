@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.domain.entity.PowerMenu;
 import com.yhuk.account.domain.service.PowerMenuService;
 import com.yhuk.account.object.request.ListByPageQo;
+import com.yhuk.account.object.response.MenuTreeBo;
 import com.yhuk.account.object.utils.JsonUtils;
 import com.yhuk.common.object.ResponseVO;
 import org.slf4j.Logger;
@@ -55,6 +56,17 @@ public class PowerMenuController {
         logger.info("/list request:{}", JsonUtils.toJson(reqQo));
         return new ResponseVO<>(service.find(reqQo));
     }
+
+    /**
+     * 获取树形菜单
+     * @return
+     */
+    @GetMapping("/treeMenu")
+    public ResponseVO<MenuTreeBo> findTreeMenu(){
+        MenuTreeBo treeMenu = service.getTreeMenu();
+        return new ResponseVO<>(treeMenu);
+    }
+
 //    @GetMapping
 //    public ResponseVO<Object> findAll(){
 //        logger.info("menu findAll");
