@@ -75,4 +75,14 @@ public class PowerOperationServiceImpl extends BaseServiceImpl<PowerOperationDao
         }
         return resourceBos;
     }
+
+    @Override
+    public List<PowerOperation> getAvailableSubMenuByRoleIds(List<String> roleIds) {
+        QueryWrapper<PowerRoleOperation> roleOperationQueryWrapper =
+                new QueryWrapper<>();
+        roleOperationQueryWrapper.in("role_id",roleIds);
+        List<PowerRoleOperation> powerRoleOperations =
+                roleOperationDao.selectList(roleOperationQueryWrapper);
+        return null;
+    }
 }

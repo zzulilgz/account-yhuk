@@ -66,7 +66,6 @@ public class PowerMenuController {
         MenuTreeBo treeMenu = service.getTreeMenu();
         return new ResponseVO<>(treeMenu);
     }
-
 //    @GetMapping
 //    public ResponseVO<Object> findAll(){
 //        logger.info("menu findAll");

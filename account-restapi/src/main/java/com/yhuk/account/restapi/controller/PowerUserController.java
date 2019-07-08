@@ -3,26 +3,26 @@ package com.yhuk.account.restapi.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yhuk.account.domain.entity.PowerUser;
+import com.yhuk.account.domain.service.PowerOperationService;
 import com.yhuk.account.domain.service.PowerRoleService;
 import com.yhuk.account.domain.service.PowerUserService;
 
 import com.yhuk.account.object.response.UserRolesBo;
 import com.yhuk.account.object.utils.JsonUtils;
-import com.yhuk.account.object.utils.ResponseUtils;
-import com.yhuk.account.object.utils.ResponseUtils.Response;
 import com.yhuk.common.object.ResponseVO;
-import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import com.yhuk.account.object.request.ListByPageQo;
-import org.springframework.stereotype.Controller;
 
-import java.sql.Wrapper;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -39,6 +39,8 @@ public class PowerUserController {
 
 	@Autowired
     PowerUserService service;
+	@Autowired
+    PowerOperationService powerOperationService;
     @Autowired
     PowerRoleService roleService;
 
@@ -81,6 +83,13 @@ public class PowerUserController {
         logger.info("/list request:{}", JsonUtils.toJson(reqQo));
         new ResponseVO<>(service.find(reqQo));
         return new ResponseVO<>(service.find(reqQo));
+    }
+    @GetMapping("/available/subMenu")
+    public ResponseVO<Set<Integer>> availableSubMenu(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        List<String> roleIds = authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        powerOperationService.getAvailableSubMenuByRoleIds(roleIds);
     }
 
     @GetMapping("/name/{login}")
