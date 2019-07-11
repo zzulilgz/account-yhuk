@@ -39,6 +39,15 @@ public class PowerOperation extends Model<PowerOperation> {
      */
 	private String remark;
 
+	private Integer menuId;
+
+	public Integer getMenuId() {
+		return menuId;
+	}
+
+	public void setMenuId(Integer menuId) {
+		this.menuId = menuId;
+	}
 
 	public Integer getId() {
 		return id;

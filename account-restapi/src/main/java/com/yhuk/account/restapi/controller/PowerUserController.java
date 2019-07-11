@@ -2,6 +2,7 @@ package com.yhuk.account.restapi.controller;
 
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.yhuk.account.domain.entity.PowerOperation;
 import com.yhuk.account.domain.entity.PowerUser;
 import com.yhuk.account.domain.service.PowerOperationService;
 import com.yhuk.account.domain.service.PowerRoleService;
@@ -89,7 +90,9 @@ public class PowerUserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         List<String> roleIds = authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        powerOperationService.getAvailableSubMenuByRoleIds(roleIds);
+        List<PowerOperation> subMenuByRoleIds = powerOperationService.getAvailableSubMenuByRoleIds(roleIds);
+        Set<Integer> collect = subMenuByRoleIds.stream().map(PowerOperation::getMenuId).collect(Collectors.toSet());
+        return new ResponseVO(collect);
     }
 
     @GetMapping("/name/{login}")
