@@ -62,8 +62,8 @@ public class PowerMenuController {
      * @return
      */
     @GetMapping("/treeMenu")
-    public ResponseVO<MenuTreeBo> findTreeMenu(){
-        MenuTreeBo treeMenu = service.getTreeMenu();
+    public ResponseVO<MenuTreeBo> findTreeMenu(@RequestParam(value = "addOperation") Boolean addOperation){
+        MenuTreeBo treeMenu = service.getTreeMenu(addOperation);
         return new ResponseVO<>(treeMenu);
     }
 //    @GetMapping

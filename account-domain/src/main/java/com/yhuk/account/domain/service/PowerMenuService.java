@@ -16,8 +16,17 @@ import com.yhuk.account.object.response.MenuTreeBo;
  * @since 2019-04-23
  */
 public interface PowerMenuService extends IService<PowerMenu> {
-
+    /**
+     * 分页查找
+     * @param reqQo
+     * @return
+     */
     IPage find(ListByPageQo reqQo);
 
-    MenuTreeBo getTreeMenu();
+    /**
+     *
+     * @param addOperation 是否显示operation
+     * @return
+     */
+    MenuTreeBo getTreeMenu(Boolean addOperation);
 }

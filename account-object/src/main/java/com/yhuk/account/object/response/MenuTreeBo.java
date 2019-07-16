@@ -14,9 +14,11 @@ import java.util.List;
 @Data
 public class MenuTreeBo {
 
-    private Integer id;
+    private String id;
 
     private String label;
+    //对于menu来说是路由地址，对于operation来说是访问地址
+    private String path;
 
     private List<MenuTreeBo> children = new ArrayList<>();
 

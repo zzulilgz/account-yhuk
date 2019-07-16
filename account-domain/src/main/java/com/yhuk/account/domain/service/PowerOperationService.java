@@ -28,4 +28,6 @@ public interface PowerOperationService extends IService<PowerOperation> {
     List<ResourceBo> findByRole(Integer roleId);
 
     List<PowerOperation> getAvailableSubMenuByRoleIds(List<String> roleIds);
+
+    List<PowerOperation> findBySubMenuIds(String[] subMenuIds);
 }

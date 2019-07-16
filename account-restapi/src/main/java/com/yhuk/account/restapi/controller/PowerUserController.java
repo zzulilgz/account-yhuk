@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import com.yhuk.account.object.request.ListByPageQo;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -85,13 +87,15 @@ public class PowerUserController {
         new ResponseVO<>(service.find(reqQo));
         return new ResponseVO<>(service.find(reqQo));
     }
-    @GetMapping("/available/subMenu")
-    public ResponseVO<Set<Integer>> availableSubMenu(){
+    @GetMapping("/operation")
+    public ResponseVO<Set<String>> availableSubMenu(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         List<String> roleIds = authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         List<PowerOperation> subMenuByRoleIds = powerOperationService.getAvailableSubMenuByRoleIds(roleIds);
-        Set<Integer> collect = subMenuByRoleIds.stream().map(PowerOperation::getMenuId).collect(Collectors.toSet());
+        Set<String> collect = subMenuByRoleIds.stream().map(powerOperation -> {
+            return "sub-"+powerOperation.getId();
+        }).collect(Collectors.toSet());
         return new ResponseVO(collect);
     }
 

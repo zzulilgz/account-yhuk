@@ -1,13 +1,12 @@
 package com.yhuk.account.domain.service.impl;
 
-import com.yhuk.account.domain.dao.PowerRoleOperationDao;
-import com.yhuk.account.domain.entity.PowerOperation;
-import com.yhuk.account.domain.dao.PowerOperationDao;
-import com.yhuk.account.domain.entity.PowerRoleOperation;
-import com.yhuk.account.domain.service.PowerOperationService;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.yhuk.account.domain.dao.PowerOperationDao;
+import com.yhuk.account.domain.dao.PowerRoleOperationDao;
+import com.yhuk.account.domain.entity.PowerOperation;
+import com.yhuk.account.domain.entity.PowerRoleOperation;
+import com.yhuk.account.domain.service.PowerOperationService;
 import com.yhuk.account.object.request.ListByPageQo;
 import com.yhuk.account.object.response.ResourceBo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -83,6 +83,29 @@ public class PowerOperationServiceImpl extends BaseServiceImpl<PowerOperationDao
         roleOperationQueryWrapper.in("role_id",roleIds);
         List<PowerRoleOperation> powerRoleOperations =
                 roleOperationDao.selectList(roleOperationQueryWrapper);
-        return null;
+        if(CollectionUtils.isEmpty(powerRoleOperations)){
+            return Collections.emptyList();
+        }
+        List<Integer> collect = powerRoleOperations.stream().map(
+                PowerRoleOperation::getOperationId).collect(Collectors.toList());
+
+        //查询operation
+        QueryWrapper<PowerOperation> operationQuery = new QueryWrapper<>();
+        operationQuery.in("id",collect);
+
+        return Optional.ofNullable(mapper.selectList(operationQuery)).orElse(
+                Collections.EMPTY_LIST
+        );
+    }
+
+    @Override
+    public List<PowerOperation> findBySubMenuIds(String[] subMenuIds) {
+        QueryWrapper<PowerOperation> roleOperationQueryWrapper =
+                new QueryWrapper<>();
+        roleOperationQueryWrapper.in("menu_id",subMenuIds);
+        List<PowerOperation> powerOperations = mapper.selectList(roleOperationQueryWrapper);
+
+        return powerOperations;
+
     }
 }
