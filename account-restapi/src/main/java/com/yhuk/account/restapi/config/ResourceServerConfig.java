@@ -1,5 +1,6 @@
 package com.yhuk.account.restapi.config;
 
+import com.yhuk.account.domain.service.PowerRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-
+    @Autowired
+    private PowerRoleService powerRoleService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -45,8 +48,25 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/swagger-resources","/swagger-resources/configuration/security",
                         "/swagger-ui.html","/course/coursebase/**").permitAll()
             .anyRequest().authenticated()
-                .and()
+                .and().addFilterAfter(customFilter(), FilterSecurityInterceptor.class)
             .httpBasic().disable();
+    }
+    public MyFilterSecurityInterceptor customFilter() throws Exception{
+        MyFilterSecurityInterceptor customFilter = new MyFilterSecurityInterceptor();
+        customFilter.setSecurityMetadataSource(securityMetadataSource());
+        customFilter.setAccessDecisionManager(accessDecisionManager());
+        //customFilter.setAuthenticationManager(authenticationManagerBean());
+        return customFilter;
+    }
+
+    @Bean
+    public MyAccessDecisionManager accessDecisionManager() {
+        return new MyAccessDecisionManager();
+    }
+
+    @Bean
+    public MySecurityMetadataSource securityMetadataSource() {
+        return new MySecurityMetadataSource(powerRoleService);
     }
 
 
